@@ -38,6 +38,7 @@
       - Tindakan penanganan
 
   business_objectives:
+  
     - Otomatisasi ekstraksi informasi bencana
     - Meningkatkan kecepatan respon lembaga kebencanaan
     - Mengurangi proses manual
@@ -45,6 +46,7 @@
     - Meningkatkan kesiapsiagaan bencana nasional
 
   urgency_context: >
+  
     Indonesia merupakan salah satu negara paling rawan bencana di dunia.
     Terjadi peningkatan signifikan jumlah bencana setiap tahun, sehingga
     dibutuhkan sistem otomatis untuk mendeteksi dan mengekstraksi informasi
