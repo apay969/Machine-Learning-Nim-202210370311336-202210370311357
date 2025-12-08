@@ -1,271 +1,217 @@
-📘 Pengembangan Model Machine Learning untuk Ekstraksi Informasi & Identifikasi Peristiwa Bencana Alam dari Teks Berita Bahasa Indonesia
+Machine-Learning-Nim-202210370311336-202210370311357
+Pengembangan Model ML untuk Ekstraksi & Identifikasi Peristiwa Bencana Alam (Bahasa Indonesia)
 
-Penulis:
-
-Muhammad Nur Iman (202210370311357)
-
-Muhammad Akbar Ghaffari (202210370311336)
+Nama Proyek: Pengembangan Model Machine Learning untuk Ekstraksi Informasi dan Identifikasi Peristiwa Bencana Alam dari Teks Berita Bahasa Indonesia
+Penulis: Muhammad Nur Iman (202210370311357), Muhammad Akbar Ghaffari (202210370311336)
 Tahun: 2025
 
-🔍 Ringkasan Proyek
+1. Ringkasan Proyek
 
-Proyek ini membangun pipeline Machine Learning untuk menganalisis teks berita Kompas.com (kanal Nasional, tahun 2025) dengan tujuan:
+Proyek ini mengembangkan pipeline machine learning untuk menganalisis berita berbahasa Indonesia (sumber: Kompas.com) dengan tujuan:
 
-Klasifikasi jenis bencana (banjir, gempa, erupsi, longsor, cuaca ekstrem, dll.)
+Otomatisasi information extraction (lokasi, waktu, korban, dampak, penanganan).
 
-Information Extraction / NER untuk mengekstraksi:
+Identifikasi jenis bencana (banjir, gempa, longsor, erupsi, dsb.).
 
-Lokasi kejadian
+Proyek mencakup pre-processing teks, ekstraksi fitur, pemodelan ML klasik, perbandingan dengan model DL/Transformer, serta evaluasi menggunakan confusion matrix dan F1-macro.
 
-Waktu kejadian
+2. Business Objective
 
-Penanganan bencana
+Proyek ini bertujuan untuk meningkatkan efisiensi proses pemantauan bencana dengan cara:
 
-Korban & dampak
+Mengotomatisasi ekstraksi informasi penting dari berita.
 
-Pendekatan yang digunakan meliputi Machine Learning klasik (SVM, LR), Deep Learning (LSTM), Transformer (IndoBERT), dan LoRA. Termasuk juga tahap Explainable AI (SHAP & LIME).
+Mempercepat penyampaian informasi ke BNPB/BPBD dan pihak terkait.
 
-1. 🎯 Business Objective
+Menyediakan data terstruktur untuk analisis spasial dan temporal.
 
-Tujuan utama proyek ini adalah meningkatkan efisiensi dan akurasi pemantauan bencana di Indonesia dengan:
+Mengurangi ketergantungan terhadap proses manual yang lambat.
 
-Mengotomatisasi ekstraksi informasi dari berita dalam jumlah besar.
+3. Dataset
 
-Memberikan data terstruktur untuk BNPB/BPBD.
+File utama: kompas_bencana_nasional_2025.xlsx
+Jumlah data: 1.429 berita kanal Nasional Kompas (tahun 2025).
 
-Mempercepat deteksi tren bencana secara spasial & temporal.
-
-Mengurangi ketergantungan proses manual yang lambat dan sulit diskalakan.
-
-2. 📂 Dataset
-2.1 Deskripsi Dataset
-
-Dataset utama berada dalam file:
-kompas_bencana_nasional_2025.xlsx berisi 1.429 berita bencana dengan atribut:
+Atribut dataset:
 
 Kolom	Deskripsi
 title	Judul berita
-summary	Ringkasan isi berita
-url	Sumber berita
-section	Kanal berita (Nasional)
+summary	Ringkasan berita
+url	Tautan sumber
 author	Penulis
+section	Kanal berita
 published_local	Waktu publikasi
 
-Catatan: File asli tidak disertakan di repo karena hak cipta, namun format tabel telah disediakan.
+Catatan penting:
+Dataset asli tidak dibagikan karena berasal dari konten berhak cipta (Kompas.com). Format tabel disediakan untuk replikasi.
 
-3. 🧭 Machine Learning Tasks
-3.1 Text Classification
+4. Target / Label (Output)
 
-Tujuan: memprediksi jenis bencana dari teks.
+Model dikembangkan untuk mengekstraksi atau memprediksi:
 
-3.2 Information Extraction (NER)
+Event / jenis bencana (banjir, gempa, longsor, erupsi, kebakaran, tsunami, dll.)
 
-Model mengekstraksi:
+Lokasi kejadian (desa/kabupaten/kota/provinsi).
 
-Event (jenis bencana)
+Waktu kejadian (tanggal/periode).
 
-Lokasi
+Penyelesaian / penanganan (evakuasi, bantuan, pemulihan).
 
-Waktu kejadian
+Korban & dampak (meninggal, luka, pengungsi, terdampak).
 
-Penanganan
-
-Korban & dampak
-
-4. 🔥 Urgensi Topik
-
-Indonesia termasuk negara dengan risiko bencana tertinggi:
-
-Periode Januari–Oktober 2025 terdapat 2.590 kejadian bencana.
-
-99.03% merupakan bencana hidrometeorologi.
-
-Frekuensi bencana meningkat 82% dalam 2010–2022.
-
-Dampak ekonomi & sosial signifikan.
-
-Data valid dari BNPB, BPS, dan GoodStats.
-
-5. ⚙️ Tahap Pre-processing
-
-Proses pembersihan data menggunakan Python + Sastrawi. Langkah:
+5. Arsitektur & Metode
+Pre-processing
 
 Case folding
 
-Cleansing (regex, hapus angka, simbol, URL, emoji)
+Cleansing (regex)
 
 Tokenization
 
-Stopword removal
+Stopword removal (Sastrawi)
 
 Stemming (Sastrawi)
 
 Reconstruction
 
-Contoh hasil sebelum–sesudah disediakan dalam tabel (lihat PDF / notebook).
+Feature Selection
 
-6. 🧮 Feature Selection
-6.1 TF-IDF (statistical features)
+TF-IDF:
 
-ngram (1–2)
+n-gram: 1–2
 
 max_features=5000
 
-sublinear_tf = True
+sublinear_tf=True
 
-10 kata tertinggi TF-IDF antara lain:
-banjir, korban, gempa, bencana, bantu, dll.
+FastText:
 
-6.2 FastText (semantic features)
+Embedding + semantic similarity
 
-Menangkap makna kedekatan kata:
+Model Klasifikasi
 
-Contoh hasil similarity tertinggi:
-pascagempa, gempabumi, pascabanjir, longsor, tsunami.
-
-6.3 Perbandingan TF-IDF vs FastText
-Aspek	TF-IDF	FastText
-Pendekatan	Statistik	Embedding semantik
-Kelebihan	Mudah diinterpretasi	Tangkap sinonim & konteks
-Kekurangan	Tidak mengenali makna	Butuh data besar
-Kegunaan	Fitur penting	Makna & relevansi
-7. 🏗️ Model & Eksperimen
-7.1 Model Klasik
-1. Logistic Regression
+Logistic Regression
 
 class_weight='balanced'
 
-C terbaik = 10
+Nilai C terbaik: 10
 
-2. Linear SVM
+Linear SVM
 
-Linear SVM dengan C = 1
+C terbaik: 1
 
-grid search + stratified 3-fold CV
+Evaluasi
 
-📊 Hasil Model Klasik
-Model	Akurasi	F1-Macro	C
-Logistic Regression	0.8287	0.6061	10
-Linear SVM	0.8217	0.5969	1
-8. 📉 Confusion Matrix & Analisis
+Accuracy
 
-Kedua model baik dalam kelas besar:
-✔ banjir
-✔ gempa
-✔ lainnya
+Precision
 
-Lemah pada kelas minor:
-✘ tsunami
-✘ kekeringan
-✘ puting beliung
+Recall
 
-Penyebab: imbalanced dataset.
+F1-macro
 
-9. 🤖 Model Lanjutan: LSTM & IndoBERT
-9.1 Hasil LSTM
-Metric	Nilai
-Akurasi	0.622
-F1-Macro	0.550
+Confusion matrix
 
-❗ Overfitting parah → Train naik, Validation stagnan.
+Hasil terbaik:
 
-9.2 Hasil IndoBERT
-Metric	Nilai
-Akurasi	0.689
-F1-Macro	0.530
+Logistic Regression: akurasi 0.8287 (F1-macro 0.6061)
 
-Masalah utama:
+Linear SVM: akurasi 0.8217 (F1-macro 0.5969)
 
-fine-tuning terbatas
+Model bekerja baik pada kelas mayor, tetapi lemah pada kelas minor (tsunami, kekeringan) akibat imbalanced dataset.
 
-dataset kecil
+6. Tahapan Proyek
+1. Akuisisi & Penyimpanan Data
 
-kelas tidak seimbang
+Mengambil artikel Kompas kanal Nasional 2025
 
-10. ⚡ LoRA (Low-Rank Adaptation)
-Hasil Epoch 7
-Metric	Nilai
-Train Loss	0.3353
-Validation Accuracy	0.3077
-Validation F1-Macro	0.3347
-Performa per Kelas (Ringkas)
+Disimpan dalam format Excel/CSV: title, summary, url, section, author, published_local
 
-Kelas besar → lumayan
-Kelas kecil → gagal total
+2. Eksplorasi Data (EDA)
 
-11. 🧠 Explainable AI (XAI)
+Analisis distribusi jenis bencana
 
-Metode:
+Wordcloud, histogram tanggal, missing values
 
-SHAP
+3. Anotasi / Labeling (jika menggunakan NER)
 
-LIME
+Pelabelan token untuk: lokasi, waktu, korban, penanganan
 
-Hasil Utama XAI
-SHAP (Global)
+4. Pre-processing
 
-Fitur penting:
+Membersihkan teks mentah agar siap diproses
 
-“banjir”, “hujan deras”, “meluap”
+5. Feature Engineering
 
-“gempa”, “magnitudo”, “BMKG”
+TF-IDF unigram & bigram
 
-“erupsi”, “luncuran lava”
+FastText embedding
 
-Model terbukti tidak asal menebak, tetapi mengikuti kata relevan.
+Kombinasi sparse + dense
 
-LIME (Local)
+6. Pembagian Dataset
 
-Menunjukkan kata pendorong keputusan per berita, warna:
+Train: 70%
 
-hijau → positif
+Validasi: 10%
 
-merah → negatif
+Test: 20%
 
-12. 🏆 Perbandingan Semua Model
-Model	Accuracy	F1-Macro	Pendekatan
-TF-IDF + SVM	0.787	0.700	klasik
-LSTM	0.622	0.550	deep learning
-IndoBERT	0.689	0.530	pretrained
-LoRA	0.3077	0.3347	PEFT
+Stratified split
 
-📌 Model klasik TF-IDF + SVM adalah yang terbaik.
+7. Training Model
 
-Alasan:
+Logistic Regression
 
-Dataset kecil
+Linear SVM
 
-Imbalanced
+Hyperparameter tuning dengan GridSearchCV
 
-Fitur TF-IDF sangat kuat untuk teks berita bahasa Indonesia
+8. Evaluasi
 
-13. 📌 Kelemahan & Tantangan
+Accuracy, F1-macro
 
-Kelas minor sangat sedikit → model kesulitan
+Analisis confusion matrix
 
-Data dari satu portal media → kurang bervariasi
+Performa per kelas
 
-Beberapa bencana jarang terjadi (tsunami, puting beliung)
+7. Evaluasi & Hasil (ringkas)
+Model	Akurasi	F1-macro	Catatan
+Logistic Regression	0.8287	0.6061	Terbaik
+Linear SVM	0.8217	0.5969	Stabil
 
-14. 📚 Referensi
+Temuan utama:
 
-Sertakan 8–15 referensi jurnal:
+Kelas mayor seperti banjir dan lainnya dikenali sangat baik.
 
-NER Indonesia
+Kelas minor sering salah prediksi akibat ketidakseimbangan dataset.
 
-FastText
+8. Catatan Etis & Legal
 
-IndoBERT
+Konten berita Kompas.com dilindungi hak cipta.
 
-Disaster NLP
+Repositori tidak menyertakan teks asli.
 
-Model SVM klasik untuk teks
+Pastikan penggunaan data sesuai kebijakan penyedia.
 
-Paper XAI SHAP & LIME
-(sudah kamu siapkan pada laporan)
+Sistem ML untuk kebencanaan harus disertai verifikasi manusia (human-in-the-loop).
 
-15. 📞 Kontak
+9. Referensi & Bahan Bacaan
 
-Muhammad Nur Iman – 202210370311357
+Scikit-learn documentation
 
-Muhammad Akbar Ghaffari – 202210370311336
+Sastrawi stemmer
+
+fastText documentation
+
+HuggingFace Transformers
+
+Jurnal terkait NER & Information Extraction
+
+Paper TF-IDF, SVM, Logistic Regression, dsb.
+
+10. Kontak
+
+Muhammad Nur Iman — 202210370311357
+
+Muhammad Akbar Ghaffari — 202210370311336
