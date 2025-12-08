@@ -261,6 +261,7 @@
         total: "< 20"
 
   imbalance_note: >
+  
     Dataset sangat tidak seimbang.
     Kelas minor (tsunami, kekeringan) memiliki performa sangat rendah.
 
