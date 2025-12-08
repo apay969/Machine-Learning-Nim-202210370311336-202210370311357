@@ -1,94 +1,114 @@
+README:
+  ============================================================
+  📛 INFORMASI PROYEK
+  ============================================================
+  project_info:
+    project_title: "Natural Disaster Information Extraction"
+    subtitle: "Ekstraksi Informasi & Klasifikasi Bencana Alam dari Teks Berita Bahasa Indonesia"
+    topic: "Natural Language Processing (NLP) – Disaster Event Mining"
+    language: "Bahasa Indonesia"
+    source_document: "Machine Learning C – Natural Disaster Information Extraction"
 
-  project_title: "Natural Disaster Information Extraction"
-  subtitle: "Ekstraksi Informasi & Klasifikasi Bencana Alam dari Teks Berita Bahasa Indonesia"
   authors:
-    - name: Muhammad Nur Iman
-      nim: 202210370311357
-      email: muhammadnuriman357@webmail.umm.ac.id
-    - name: Muhammad Akbar Ghaffari
-      nim: 202210370311336
-      email: akbargaffari336@webmail.umm.ac.id
-  source_document: "Machine Learning C – Natural Disaster Information Extraction"
-  citation: :contentReference[oaicite:0]{index=0}
-  language: "Bahasa Indonesia"
+    - name: "Muhammad Nur Iman"
+      nim: "202210370311357"
+      email: "muhammadnuriman357@webmail.umm.ac.id"
+
+    - name: "Muhammad Akbar Ghaffari"
+      nim: "202210370311336"
+      email: "akbargaffari336@webmail.umm.ac.id"
 
   ============================================================
   📌 RINGKASAN PROYEK
   ============================================================
   summary: >
-    Proyek ini bertujuan membangun model Machine Learning untuk mendeteksi, 
-    mengklasifikasikan, dan mengekstraksi informasi penting terkait bencana alam 
-    dari teks berita Indonesia (Kompas.com 2025). Output utama mencakup:
-    - Jenis bencana
-    - Lokasi kejadian
-    - Waktu kejadian
-    - Dampak dan korban
-    - Tindakan penanganan
+    Proyek ini bertujuan mengembangkan model Machine Learning untuk
+    mendeteksi, mengklasifikasikan, dan mengekstraksi informasi penting
+    terkait bencana alam dari teks berita Bahasa Indonesia yang bersumber
+    dari Kompas.com tahun 2025.
 
-  primary_objective:
-    - Otomatisasi ekstraksi informasi bencana dari berita online
-    - Meningkatkan kecepatan respons lembaga kebencanaan
+    Output utama meliputi:
+      - Jenis bencana
+      - Lokasi kejadian
+      - Waktu kejadian
+      - Dampak & korban
+      - Tindakan penanganan
+
+  business_objectives:
+    - Otomatisasi ekstraksi informasi bencana
+    - Meningkatkan kecepatan respon lembaga kebencanaan
+    - Mengurangi proses manual
     - Mendukung pengambilan keputusan berbasis data
+    - Meningkatkan kesiapsiagaan bencana nasional
 
   urgency_context: >
-    Indonesia merupakan negara rawan bencana. Lonjakan kejadian 
-    membuat proses manual tidak efisien sehingga diperlukan 
-    pendekatan AI untuk identifikasi dan ekstraksi informasi cepat.
-    (Sumber data dari Kompas & laporan kebencanaan nasional) :contentReference[oaicite:1]{index=1}
+    Indonesia merupakan salah satu negara paling rawan bencana di dunia.
+    Terjadi peningkatan signifikan jumlah bencana setiap tahun, sehingga
+    dibutuhkan sistem otomatis untuk mendeteksi dan mengekstraksi informasi
+    bencana secara cepat dan akurat dari teks berita.
 
   ============================================================
-  📂 DATASET
+  📂 INFORMASI DATASET
   ============================================================
-  dataset:
-    source: "Kompas.com - Kanal Nasional 2025"
-    file: "kompas_bencana_nasional_2025.xlsx"
-    total_records: 1429
-    focus: 
+  dataset_info:
+    source: "Kompas.com – Kanal Nasional (2025)"
+    file_name: "kompas_bencana_nasional_2025.xlsx"
+    total_data: 1429
+    focus_disaster:
       - Hidrometeorologi (banjir, longsor, cuaca ekstrem)
       - Geologi (gempa, erupsi gunung)
 
-  schema_table:
+  dataset_schema:
     - column: title
-      description: Judul berita
+      type: text
+      description: "Judul berita"
+
     - column: url
-      description: Link sumber berita
+      type: link
+      description: "Tautan berita"
+
     - column: author
-      description: Nama penulis
+      type: text
+      description: "Nama penulis"
+
     - column: section
-      description: Kategori berita (Nasional)
+      type: text
+      description: "Kategori berita (Nasional)"
+
     - column: published_local
-      description: Waktu publikasi
+      type: datetime
+      description: "Tanggal publikasi"
+
     - column: summary
-      description: Ringkasan isi berita (fitur utama model)
+      type: text
+      description: "Ringkasan artikel (fitur utama model)"
 
   ============================================================
   🎯 TARGET EKSTRAKSI (OUTPUT MODEL)
   ============================================================
-  targets:
-    table:
-      - field: Event
-        description: Jenis bencana (banjir, gempa, longsor, dll)
-        method: Keyword + Context Detection
-      - field: Location
-        description: Lokasi kejadian (desa, kota, provinsi)
-        method: NER (Named Entity Recognition)
-      - field: Time
-        description: Waktu kejadian
-        method: Temporal Entity Recognition
-      - field: Handling
-        description: Penanganan bencana (evakuasi, distribusi logistik)
-        method: Context Phrase Detection
-      - field: Impact
-        description: Dampak & korban
-        method: Numeric Pattern Recognition + Context
+  extraction_targets:
+    - field: Event
+      description: "Jenis bencana (banjir, gempa, longsor, dll)"
+
+    - field: Location
+      description: "Lokasi kejadian bencana"
+
+    - field: Time
+      description: "Waktu kejadian bencana"
+
+    - field: Handling
+      description: "Penanganan dan respon bencana"
+
+    - field: Impact
+      description: "Korban dan dampak kerusakan"
 
   ============================================================
-  ⚙️ TAHAP PRE-PROCESSING
+  ⚙️ PRE-PROCESSING PIPELINE
   ============================================================
-  preprocessing_pipeline:
+  preprocessing:
     steps:
       - Case Folding
-      - Cleansing (regex, simbol, URL, emoji)
+      - Cleansing character & simbol
       - Tokenization
       - Stopword Removal
       - Stemming (Sastrawi)
@@ -96,106 +116,136 @@
 
   preprocessing_examples:
     table:
-      - original: "Banjir besar melanda Jakarta akibat hujan deras."
-        processed: "banjir besar melanda jakarta hujan deras"
-      - original: "BMKG mengimbau waspada gempa dan tsunami."
-        processed: "bmkg imbau waspada gempa tsunami"
+      - before: "Banjir besar melanda Jakarta akibat hujan deras."
+        after: "banjir besar melanda jakarta hujan deras"
+
+      - before: "BMKG mengimbau masyarakat waspada potensi gempa."
+        after: "bmkg imbau masyarakat waspada potensi gempa"
+
+      - before: "Evakuasi korban longsor dilakukan oleh tim SAR."
+        after: "evakuasi korban longsor lakukan tim sar"
 
   ============================================================
   🔍 FEATURE SELECTION
   ============================================================
-  methods:
+  feature_selection_methods:
     - TF-IDF
-    - FastText Embedding
+    - FastText
 
-  tfidf_top_keywords:
+  tfidf_top_features:
     table:
-      - word: banjir
+      - no: 1
+        word: "banjir"
         score: 0.0403
-      - word: korban
+
+      - no: 2
+        word: "korban"
         score: 0.0323
-      - word: gempa
+
+      - no: 3
+        word: "gempa"
         score: 0.0310
-      - word: bencana
+
+      - no: 4
+        word: "bencana"
         score: 0.0300
-      - word: hujan
+
+      - no: 5
+        word: "hujan"
         score: 0.0245
 
-  fasttext_similar_terms:
+  fasttext_top_similarity:
     table:
-      - word: longsor
+      - word: "longsor"
         similarity: 0.4975
-      - word: gempabumi
+
+      - word: "gempabumi"
         similarity: 0.4909
-      - word: pascabanjir
+
+      - word: "pascabanjir"
         similarity: 0.4761
-      - word: tsunami
+
+      - word: "tsunami"
         similarity: 0.4634
 
-  method_comparison:
+  comparison_tfidf_vs_fasttext:
     table:
-      - aspect: Focus
-        tfidf: Frekuensi statistik
-        fasttext: Makna semantik
-      - aspect: Advantage
-        tfidf: Cepat & mudah
-        fasttext: Paham konteks
-      - aspect: Weakness
-        tfidf: Tidak kenal makna
-        fasttext: Perlu data besar
+      - aspect: "Pendekatan"
+        tfidf: "Frekuensi kata"
+        fasttext: "Makna kata"
+
+      - aspect: "Kelebihan"
+        tfidf: "Sederhana & cepat"
+        fasttext: "Paham konteks"
+
+      - aspect: "Kekurangan"
+        tfidf: "Tidak mengenali makna"
+        fasttext: "Butuh data banyak"
 
   ============================================================
-  🤖 MODEL & ALGORITMA
+  🤖 MODEL YANG DIGUNAKAN
   ============================================================
   classical_models:
     table:
-      - model: Logistic Regression
-        best_C: 10
+      - model: "Logistic Regression"
+        best_parameter: C = 10
         accuracy: 0.8287
         f1_macro: 0.6061
-      - model: Linear SVM
-        best_C: 1
+
+      - model: "Linear SVM"
+        best_parameter: C = 1
         accuracy: 0.8217
         f1_macro: 0.5969
 
   advanced_models:
     table:
-      - model: LSTM
+      - model: "LSTM"
+        type: "Deep Learning"
         accuracy: 0.622
         f1_macro: 0.550
-        comment: Overfitting
-      - model: IndoBERT
+        issue: "Overfitting"
+
+      - model: "IndoBERT"
+        type: "Transformer"
         accuracy: 0.689
         f1_macro: 0.530
-        comment: Fine-tuning terbatas
-      - model: LoRA
+        issue: "Fine-tuning terbatas"
+
+      - model: "LoRA"
+        type: "Parameter Efficient"
         accuracy: 0.3077
         f1_macro: 0.3347
-        comment: Sangat terpengaruh imbalance
+        issue: "Imbalance data ekstrem"
 
   ============================================================
   📊 DISTRIBUSI LABEL
   ============================================================
   label_distribution:
     table:
-      - label: lainnya
-        count: 715
-      - label: banjir
-        count: 370
-      - label: gempa
-        count: 140
-      - label: kebakaran
-        count: 70
-      - label: longsor
-        count: 50
-      - label: tsunami
-        count: <20
-      - label: kekeringan
-        count: <20
+      - label: "lainnya"
+        total: 715
+
+      - label: "banjir"
+        total: 370
+
+      - label: "gempa"
+        total: 140
+
+      - label: "kebakaran"
+        total: 70
+
+      - label: "longsor"
+        total: 50
+
+      - label: "tsunami"
+        total: "< 20"
+
+      - label: "kekeringan"
+        total: "< 20"
 
   imbalance_note: >
-    Dataset sangat tidak seimbang (imbalanced) sehingga
-    mempengaruhi performa pada kelas minor seperti tsunami dan kekeringan.
+    Dataset sangat tidak seimbang.
+    Kelas minor (tsunami, kekeringan) memiliki performa sangat rendah.
 
   ============================================================
   🧠 EXPLAINABLE AI (XAI)
@@ -204,41 +254,49 @@
     - SHAP
     - LIME
 
-  shap_insights:
+  shap_keywords:
     table:
-      - keyword: banjir
-        effect: Meningkatkan prediksi kelas banjir
-      - keyword: gempa
-        effect: Meningkatkan prediksi kelas gempa
-      - keyword: erupsi
-        effect: Meningkatkan prediksi kelas erupsi
+      - keyword: "banjir"
+        impact: "Meningkatkan prediksi banjir"
+
+      - keyword: "gempa"
+        impact: "Meningkatkan prediksi gempa"
+
+      - keyword: "erupsi"
+        impact: "Meningkatkan prediksi erupsi"
 
   lime_example:
-    words:
-      - banjir: 0.33
-      - hujan deras: 0.24
-      - meluap: 0.19
-      - kawasan: -0.02
+    table:
+      - word: "banjir"
+        contribution: +0.33
+
+      - word: "hujan deras"
+        contribution: +0.24
+
+      - word: "meluap"
+        contribution: +0.19
+
+      - word: "kawasan"
+        contribution: -0.02
 
   ============================================================
-  🏆 KESIMPULAN UTAMA
+  ✅ KESIMPULAN AKHIR
   ============================================================
-  final_summary:
+  final_conclusion:
     - Model terbaik: TF-IDF + Linear SVM
     - Cocok untuk dataset kecil & imbalanced
-    - Deep Learning & IndoBERT butuh data lebih besar
-    - LoRA tidak cocok untuk dataset ini tanpa balancing
+    - Deep Learning butuh data lebih besar
+    - LoRA kurang cocok untuk dataset ini
+    - XAI membuktikan model bekerja rasional
 
   recommendations:
-    - Gunakan SMOTE / Data Augmentation
-    - Perbesar dataset minor
-    - Integrasi real-time news feed
-    - Terapkan pada sistem peringatan dini
+    - Gunakan SMOTE / Oversampling
+    - Tambahkan data kelas minor
+    - Integrasi data real-time
+    - Implementasi sistem early warning
 
-  ============================================================
-  ✅ STATUS PROYEK
-  ============================================================
-  status: "Completed (Experimental - Academic Project)"
-  version: 1.0
-  license: Academic Use Only
-
+  project_status:
+    status: "Completed"
+    type: "Academic Research Project"
+    version: "1.0"
+    license: "Education / Academic Only"
