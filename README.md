@@ -1,149 +1,245 @@
-# Machine-Learning-Nim-202210370311336-202210370311357
-# Pengembangan Model ML untuk Ekstraksi dan Identifikasi Peristiwa Bencana Alam (Bahasa Indonesia)
+README:
+  project_title: "Natural Disaster Information Extraction"
+  subtitle: "Ekstraksi Informasi & Klasifikasi Bencana Alam dari Teks Berita Bahasa Indonesia"
+  authors:
+    - name: Muhammad Nur Iman
+      nim: 202210370311357
+      email: muhammadnuriman357@webmail.umm.ac.id
+    - name: Muhammad Akbar Ghaffari
+      nim: 202210370311336
+      email: akbargaffari336@webmail.umm.ac.id
+  source_document: "Machine Learning C – Natural Disaster Information Extraction"
+  citation: :contentReference[oaicite:0]{index=0}
+  language: "Bahasa Indonesia"
+  topic: "Natural Language Processing (NLP) – Disaster Event Mining"
 
-Nama Proyek: Pengembangan Model Machine Learning untuk Ekstraksi Informasi dan Identifikasi Peristiwa Bencana Alam dari Teks Berita Bahasa Indonesia  
-Penulis: Muhammad Nur Iman (202210370311357), Muhammad Akbar Ghaffari (202210370311336)  
-Tahun: 2025  
+  ============================================================
+  📌 RINGKASAN PROYEK
+  ============================================================
+  summary: >
+    Proyek ini bertujuan membangun model Machine Learning untuk mendeteksi, 
+    mengklasifikasikan, dan mengekstraksi informasi penting terkait bencana alam 
+    dari teks berita Indonesia (Kompas.com 2025). Output utama mencakup:
+    - Jenis bencana
+    - Lokasi kejadian
+    - Waktu kejadian
+    - Dampak dan korban
+    - Tindakan penanganan
 
----
+  primary_objective:
+    - Otomatisasi ekstraksi informasi bencana dari berita online
+    - Meningkatkan kecepatan respons lembaga kebencanaan
+    - Mendukung pengambilan keputusan berbasis data
 
-## Ringkasan Proyek
+  urgency_context: >
+    Indonesia merupakan negara rawan bencana. Lonjakan kejadian 
+    membuat proses manual tidak efisien sehingga diperlukan 
+    pendekatan AI untuk identifikasi dan ekstraksi informasi cepat.
+    (Sumber data dari Kompas & laporan kebencanaan nasional) :contentReference[oaicite:1]{index=1}
 
-Proyek ini mengembangkan pipeline machine learning untuk menganalisis berita berbahasa Indonesia dari Kompas.com. Tujuan utamanya adalah melakukan klasifikasi jenis bencana serta mengekstraksi entitas penting seperti lokasi kejadian, waktu kejadian, korban, dampak, dan penanganan.
+  ============================================================
+  📂 DATASET
+  ============================================================
+  dataset:
+    source: "Kompas.com - Kanal Nasional 2025"
+    file: "kompas_bencana_nasional_2025.xlsx"
+    total_records: 1429
+    focus: 
+      - Hidrometeorologi (banjir, longsor, cuaca ekstrem)
+      - Geologi (gempa, erupsi gunung)
 
----
+  schema_table:
+    - column: title
+      description: Judul berita
+    - column: url
+      description: Link sumber berita
+    - column: author
+      description: Nama penulis
+    - column: section
+      description: Kategori berita (Nasional)
+    - column: published_local
+      description: Waktu publikasi
+    - column: summary
+      description: Ringkasan isi berita (fitur utama model)
 
-## Business Objective
+  ============================================================
+  🎯 TARGET EKSTRAKSI (OUTPUT MODEL)
+  ============================================================
+  targets:
+    table:
+      - field: Event
+        description: Jenis bencana (banjir, gempa, longsor, dll)
+        method: Keyword + Context Detection
+      - field: Location
+        description: Lokasi kejadian (desa, kota, provinsi)
+        method: NER (Named Entity Recognition)
+      - field: Time
+        description: Waktu kejadian
+        method: Temporal Entity Recognition
+      - field: Handling
+        description: Penanganan bencana (evakuasi, distribusi logistik)
+        method: Context Phrase Detection
+      - field: Impact
+        description: Dampak & korban
+        method: Numeric Pattern Recognition + Context
 
-| Tujuan |
-|--------|
-| Mengotomatisasi ekstraksi informasi dari berita mengenai bencana alam. |
-| Mempercepat proses analisis untuk BNPB, BPBD, dan lembaga kemanusiaan. |
-| Menyediakan data terstruktur untuk analisis spasial dan temporal. |
-| Meningkatkan efisiensi pemantauan bencana melalui model machine learning. |
+  ============================================================
+  ⚙️ TAHAP PRE-PROCESSING
+  ============================================================
+  preprocessing_pipeline:
+    steps:
+      - Case Folding
+      - Cleansing (regex, simbol, URL, emoji)
+      - Tokenization
+      - Stopword Removal
+      - Stemming (Sastrawi)
+      - Reconstruction
 
----
+  preprocessing_examples:
+    table:
+      - original: "Banjir besar melanda Jakarta akibat hujan deras."
+        processed: "banjir besar melanda jakarta hujan deras"
+      - original: "BMKG mengimbau waspada gempa dan tsunami."
+        processed: "bmkg imbau waspada gempa tsunami"
 
-## Dataset
+  ============================================================
+  🔍 FEATURE SELECTION
+  ============================================================
+  methods:
+    - TF-IDF
+    - FastText Embedding
 
-| Informasi | Detail |
-|-----------|--------|
-| File utama | kompas_bencana_nasional_2025.xlsx |
-| Jumlah data | 1.429 berita |
-| Sumber | Kompas.com (kanal Nasional tahun 2025) |
-| Atribut | title, url, author, section, published_local, summary |
-| Catatan | Dataset asli tidak disertakan karena hak cipta. Format tabel disediakan untuk replikasi. |
+  tfidf_top_keywords:
+    table:
+      - word: banjir
+        score: 0.0403
+      - word: korban
+        score: 0.0323
+      - word: gempa
+        score: 0.0310
+      - word: bencana
+        score: 0.0300
+      - word: hujan
+        score: 0.0245
 
----
+  fasttext_similar_terms:
+    table:
+      - word: longsor
+        similarity: 0.4975
+      - word: gempabumi
+        similarity: 0.4909
+      - word: pascabanjir
+        similarity: 0.4761
+      - word: tsunami
+        similarity: 0.4634
 
-## Target / Label
+  method_comparison:
+    table:
+      - aspect: Focus
+        tfidf: Frekuensi statistik
+        fasttext: Makna semantik
+      - aspect: Advantage
+        tfidf: Cepat & mudah
+        fasttext: Paham konteks
+      - aspect: Weakness
+        tfidf: Tidak kenal makna
+        fasttext: Perlu data besar
 
-| Target | Deskripsi |
-|--------|-----------|
-| Jenis bencana | banjir, gempa, longsor, erupsi, kebakaran, tsunami, lainnya |
-| Lokasi kejadian | Nama wilayah administratif |
-| Waktu kejadian | Tanggal atau periode yang disebutkan di teks |
-| Penanganan | Evakuasi, bantuan, rehabilitasi |
-| Korban dan dampak | Data jumlah korban dan kerusakan |
+  ============================================================
+  🤖 MODEL & ALGORITMA
+  ============================================================
+  classical_models:
+    table:
+      - model: Logistic Regression
+        best_C: 10
+        accuracy: 0.8287
+        f1_macro: 0.6061
+      - model: Linear SVM
+        best_C: 1
+        accuracy: 0.8217
+        f1_macro: 0.5969
 
----
+  advanced_models:
+    table:
+      - model: LSTM
+        accuracy: 0.622
+        f1_macro: 0.550
+        comment: Overfitting
+      - model: IndoBERT
+        accuracy: 0.689
+        f1_macro: 0.530
+        comment: Fine-tuning terbatas
+      - model: LoRA
+        accuracy: 0.3077
+        f1_macro: 0.3347
+        comment: Sangat terpengaruh imbalance
 
-## Arsitektur dan Metode
+  ============================================================
+  📊 DISTRIBUSI LABEL
+  ============================================================
+  label_distribution:
+    table:
+      - label: lainnya
+        count: 715
+      - label: banjir
+        count: 370
+      - label: gempa
+        count: 140
+      - label: kebakaran
+        count: 70
+      - label: longsor
+        count: 50
+      - label: tsunami
+        count: <20
+      - label: kekeringan
+        count: <20
 
-### Pre-processing
+  imbalance_note: >
+    Dataset sangat tidak seimbang (imbalanced) sehingga
+    mempengaruhi performa pada kelas minor seperti tsunami dan kekeringan.
 
-| Tahapan |
-|---------|
-| Case folding |
-| Cleansing (regex) |
-| Tokenization |
-| Stopword removal (Sastrawi) |
-| Stemming (Sastrawi) |
-| Rekonstruksi kalimat |
+  ============================================================
+  🧠 EXPLAINABLE AI (XAI)
+  ============================================================
+  xai_methods:
+    - SHAP
+    - LIME
 
-### Feature Selection
+  shap_insights:
+    table:
+      - keyword: banjir
+        effect: Meningkatkan prediksi kelas banjir
+      - keyword: gempa
+        effect: Meningkatkan prediksi kelas gempa
+      - keyword: erupsi
+        effect: Meningkatkan prediksi kelas erupsi
 
-| Metode | Detail |
-|--------|--------|
-| TF-IDF | Unigram-bigram, max_features=5000, sublinear_tf=True |
-| FastText | Embedding dan semantic similarity |
+  lime_example:
+    words:
+      - banjir: 0.33
+      - hujan deras: 0.24
+      - meluap: 0.19
+      - kawasan: -0.02
 
-### Model Klasifikasi
+  ============================================================
+  🏆 KESIMPULAN UTAMA
+  ============================================================
+  final_summary:
+    - Model terbaik: TF-IDF + Linear SVM
+    - Cocok untuk dataset kecil & imbalanced
+    - Deep Learning & IndoBERT butuh data lebih besar
+    - LoRA tidak cocok untuk dataset ini tanpa balancing
 
-| Model | Pengaturan |
-|--------|------------|
-| Logistic Regression | class_weight balanced, C terbaik 10 |
-| Linear SVM | Nilai C terbaik 1 |
+  recommendations:
+    - Gunakan SMOTE / Data Augmentation
+    - Perbesar dataset minor
+    - Integrasi real-time news feed
+    - Terapkan pada sistem peringatan dini
 
-### Evaluasi
+  ============================================================
+  ✅ STATUS PROYEK
+  ============================================================
+  status: "Completed (Experimental - Academic Project)"
+  version: 1.0
+  license: Academic Use Only
 
-| Metrik |
-|--------|
-| Accuracy |
-| Precision |
-| Recall |
-| F1-macro |
-| Confusion matrix |
-
----
-
-## Tahapan Proyek
-
-| Tahap | Penjelasan |
-|--------|------------|
-| Akuisisi data | Mengumpulkan berita Kompas tahun 2025 dan menyimpannya dalam format tabel. |
-| Eksplorasi data (EDA) | Distribusi bencana, pola teks, wordcloud, histogram, missing values. |
-| Anotasi | Pelabelan entitas seperti lokasi, waktu, korban dan penanganan (untuk NER). |
-| Pre-processing | Membersihkan dan menyiapkan teks untuk model. |
-| Feature engineering | TF-IDF dan FastText. |
-| Pembagian dataset | Train 70%, validasi 10%, test 20% menggunakan stratified split. |
-| Pelatihan model | Logistic Regression dan SVM dengan GridSearchCV. |
-| Evaluasi | Menggunakan F1-macro, accuracy dan confusion matrix. |
-
----
-
-## Evaluasi dan Hasil
-
-| Model | Akurasi | F1-macro | Keterangan |
-|--------|---------|-----------|-------------|
-| Logistic Regression | 0.8287 | 0.6061 | Performa terbaik |
-| Linear SVM | 0.8217 | 0.5969 | Stabil |
-
-Ringkasan Temuan:
-
-| Temuan |
-|--------|
-| Model bekerja baik untuk kelas mayor seperti banjir dan lainnya. |
-| Kelas minor seperti tsunami dan kekeringan sulit diprediksi karena ketidakseimbangan data. |
-
----
-
-## Catatan Etis dan Legal
-
-| Catatan |
-|---------|
-| Dataset berasal dari sumber berhak cipta (Kompas.com). |
-| Repositori tidak menyertakan teks berita asli. |
-| Penggunaan data harus mengikuti kebijakan penyedia. |
-| Model kebencanaan harus diverifikasi oleh manusia untuk menghindari kesalahan prediksi. |
-
----
-
-## Referensi
-
-| Sumber |
-|--------|
-| Dokumentasi scikit-learn |
-| Sastrawi stemmer |
-| fastText documentation |
-| HuggingFace Transformers |
-| Jurnal terkait NER dan Information Extraction |
-
----
-
-## Kontak
-
-| Nama | NIM |
-|------|-----|
-| Muhammad Nur Iman | 202210370311357 |
-| Muhammad Akbar Ghaffari | 202210370311336 |
