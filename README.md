@@ -1,7 +1,6 @@
 
   ============================================================
-  INFORMASI PROYEK
-  ============================================================
+  INFORMASI PROYEK ============================================================
   project_info:
   
     project_title: "Natural Disaster Information Extraction"
