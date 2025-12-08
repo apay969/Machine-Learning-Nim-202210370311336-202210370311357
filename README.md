@@ -1,4 +1,4 @@
-README:
+
   project_title: "Natural Disaster Information Extraction"
   subtitle: "Ekstraksi Informasi & Klasifikasi Bencana Alam dari Teks Berita Bahasa Indonesia"
   authors:
@@ -11,7 +11,6 @@ README:
   source_document: "Machine Learning C – Natural Disaster Information Extraction"
   citation: :contentReference[oaicite:0]{index=0}
   language: "Bahasa Indonesia"
-  topic: "Natural Language Processing (NLP) – Disaster Event Mining"
 
   ============================================================
   📌 RINGKASAN PROYEK
