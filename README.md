@@ -10,6 +10,7 @@
     source_document: "Machine Learning C – Natural Disaster Information Extraction"
 
   authors:
+  
     - name: "Muhammad Nur Iman"
       nim: "202210370311357"
       email: "muhammadnuriman357@webmail.umm.ac.id"
@@ -22,6 +23,7 @@
   📌 RINGKASAN PROYEK
   ============================================================
   summary: >
+  
     Proyek ini bertujuan mengembangkan model Machine Learning untuk
     mendeteksi, mengklasifikasikan, dan mengekstraksi informasi penting
     terkait bencana alam dari teks berita Bahasa Indonesia yang bersumber
@@ -51,6 +53,7 @@
   📂 INFORMASI DATASET
   ============================================================
   dataset_info:
+  
     source: "Kompas.com – Kanal Nasional (2025)"
     file_name: "kompas_bencana_nasional_2025.xlsx"
     total_data: 1429
@@ -59,6 +62,7 @@
       - Geologi (gempa, erupsi gunung)
 
   dataset_schema:
+  
     - column: title
       type: text
       description: "Judul berita"
@@ -87,6 +91,7 @@
   🎯 TARGET EKSTRAKSI (OUTPUT MODEL)
   ============================================================
   extraction_targets:
+  
     - field: Event
       description: "Jenis bencana (banjir, gempa, longsor, dll)"
 
@@ -106,6 +111,7 @@
   ⚙️ PRE-PROCESSING PIPELINE
   ============================================================
   preprocessing:
+  
     steps:
       - Case Folding
       - Cleansing character & simbol
@@ -115,6 +121,7 @@
       - Reconstruction
 
   preprocessing_examples:
+  
     table:
       - before: "Banjir besar melanda Jakarta akibat hujan deras."
         after: "banjir besar melanda jakarta hujan deras"
@@ -129,10 +136,12 @@
   🔍 FEATURE SELECTION
   ============================================================
   feature_selection_methods:
+  
     - TF-IDF
     - FastText
 
   tfidf_top_features:
+  
     table:
       - no: 1
         word: "banjir"
@@ -155,6 +164,7 @@
         score: 0.0245
 
   fasttext_top_similarity:
+  
     table:
       - word: "longsor"
         similarity: 0.4975
@@ -169,6 +179,7 @@
         similarity: 0.4634
 
   comparison_tfidf_vs_fasttext:
+  
     table:
       - aspect: "Pendekatan"
         tfidf: "Frekuensi kata"
@@ -186,6 +197,7 @@
   🤖 MODEL YANG DIGUNAKAN
   ============================================================
   classical_models:
+  
     table:
       - model: "Logistic Regression"
         best_parameter: C = 10
@@ -198,6 +210,7 @@
         f1_macro: 0.5969
 
   advanced_models:
+  
     table:
       - model: "LSTM"
         type: "Deep Learning"
@@ -221,6 +234,7 @@
   📊 DISTRIBUSI LABEL
   ============================================================
   label_distribution:
+  
     table:
       - label: "lainnya"
         total: 715
@@ -251,10 +265,12 @@
   🧠 EXPLAINABLE AI (XAI)
   ============================================================
   xai_methods:
+  
     - SHAP
     - LIME
 
   shap_keywords:
+  
     table:
       - keyword: "banjir"
         impact: "Meningkatkan prediksi banjir"
@@ -266,6 +282,7 @@
         impact: "Meningkatkan prediksi erupsi"
 
   lime_example:
+  
     table:
       - word: "banjir"
         contribution: +0.33
@@ -283,6 +300,7 @@
   ✅ KESIMPULAN AKHIR
   ============================================================
   final_conclusion:
+  
     - Model terbaik: TF-IDF + Linear SVM
     - Cocok untuk dataset kecil & imbalanced
     - Deep Learning butuh data lebih besar
@@ -290,12 +308,14 @@
     - XAI membuktikan model bekerja rasional
 
   recommendations:
+  
     - Gunakan SMOTE / Oversampling
     - Tambahkan data kelas minor
     - Integrasi data real-time
     - Implementasi sistem early warning
 
   project_status:
+  
     status: "Completed"
     type: "Academic Research Project"
     version: "1.0"
